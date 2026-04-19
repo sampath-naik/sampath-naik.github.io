@@ -2,18 +2,202 @@
 <html>
 <head>
     <title>Fishing Gear - Angler Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0b0f19;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #1f2a44;
+        }
+
+        header h1 {
+            color: #00d4ff;
+        }
+
+        .controls {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .controls input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        .controls button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .filter-btn {
+            background: #1f2a44;
+            color: white;
+        }
+
+        .active {
+            background: #00d4ff;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #121a2f;
+            border-radius: 12px;
+            margin: 15px;
+            width: 260px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            padding: 5px 8px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .price {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin: 20px;
+            color: #aaa;
+            text-decoration: none;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>🛒 Fishing Gear</h1>
+<header>
+    <h1>🛒 Fishing Gear</h1>
+</header>
 
-<h3>Fishing Reel</h3>
-<p>High quality reel</p>
+<div class="controls">
+    <input type="text" id="search" placeholder="Search products...">
 
-<h3>Fishing Rod</h3>
-<p>Strong and durable</p>
+    <br><br>
 
-<a href="index.html">⬅ Back to Home</a>
+    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+    <button class="filter-btn" onclick="filterProducts('reel')">Reels</button>
+    <button class="filter-btn" onclick="filterProducts('rod')">Rods</button>
+    <button class="filter-btn" onclick="filterProducts('kit')">Kits</button>
+</div>
+
+<div class="container" id="products">
+
+    <div class="card reel" data-name="fishing reel">
+        <div class="badge">20% OFF</div>
+        <img src="https://via.placeholder.com/250">
+        <h3>Premium Fishing Reel</h3>
+        <p class="price">₹1,999</p>
+        <a href="https://wa.me/91XXXXXXXXXX" target="_blank">
+            <button class="btn whatsapp">Order Now</button>
+        </a>
+    </div>
+
+    <div class="card rod" data-name="fishing rod">
+        <img src="https://via.placeholder.com/250">
+        <h3>Strong Fishing Rod</h3>
+        <p class="price">₹2,499</p>
+        <a href="https://wa.me/91XXXXXXXXXX" target="_blank">
+            <button class="btn whatsapp">Order Now</button>
+        </a>
+    </div>
+
+    <div class="card kit" data-name="combo kit">
+        <div class="badge">Best Seller</div>
+        <img src="https://via.placeholder.com/250">
+        <h3>Fishing Combo Kit</h3>
+        <p class="price">₹3,499</p>
+        <a href="https://wa.me/91XXXXXXXXXX" target="_blank">
+            <button class="btn whatsapp">Order Now</button>
+        </a>
+    </div>
+
+</div>
+
+<a href="index.html" class="back">⬅ Back to Home</a>
+
+<script>
+    function filterProducts(category) {
+        let cards = document.querySelectorAll('.card');
+        let buttons = document.querySelectorAll('.filter-btn');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        cards.forEach(card => {
+            if (category === 'all' || card.classList.contains(category)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById('search').addEventListener('keyup', function() {
+        let value = this.value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            let name = card.getAttribute('data-name');
+            if (name.includes(value)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
